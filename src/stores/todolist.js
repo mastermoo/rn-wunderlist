@@ -38,7 +38,7 @@ class List {
 	constructor() {
 		this.addTodo('Write some code');
 		setTimeout(() => this.addTodo('Publish to Exponent'), 10);
-		// setTimeout(() => this.addTodo('Write a Medium Story', true), 20);
+		setTimeout(() => this.addTodo('Write a Medium Story', true), 20);
 	}
 
 	@action addTodo(title, starred=false) {
