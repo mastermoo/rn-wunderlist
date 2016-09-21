@@ -1,7 +1,7 @@
 {
-  "name": "rn-wunderlist",
-  "description": "A starter template",
-  "slug": "rn-wunderlist",
+  "name": "Wunderlist Clone",
+  "description": "UI Challenge #2: Wunderlist Clone written in React Native. https://medium.com/@yousefkama/react-native-ui-challenge-1-42db390905c for a writeup, source at https://github.com/mastermoo/rn-wunderlist",
+  "slug": "wunderlist",
   "sdkVersion": "9.0.0",
   "version": "1.0.0",
   "orientation": "portrait",
