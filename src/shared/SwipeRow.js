@@ -213,6 +213,8 @@ const SwipeableRow = React.createClass({
   },
 
   _handlePanResponderGrant(event: Object, gestureState: Object): void {
+    this.state.currentLeft.setOffset(this.state.currentLeft._value);
+    this.state.currentLeft.setValue(0);
     this.props.onSwipeStart();
   },
 
@@ -221,14 +223,14 @@ const SwipeableRow = React.createClass({
       return;
     }
 
-    this.props.onSwipeStart();
+    // this.props.onSwipeStart();
 
-    if (this._isSwipingRightFromClosed(gestureState)) {
-      // dont allow to swipe right!
-      return; // this._swipeSlowSpeed(gestureState);
-    } else {
-      this._swipeFullSpeed(gestureState);
-    }
+    // if (this._isSwipingRightFromClosed(gestureState)) {
+    //   return this._swipeSlowSpeed(gestureState);
+    // } else {
+    //   this._swipeFullSpeed(gestureState);
+    // }
+    this._swipeFullSpeed(gestureState);
   },
 
   _isSwipingRightFromClosed(gestureState: Object): boolean {
@@ -237,12 +239,12 @@ const SwipeableRow = React.createClass({
   },
 
   _swipeFullSpeed(gestureState: Object): void {
-    this.state.currentLeft.setValue(this._previousLeft + gestureState.dx);
+    this.state.currentLeft.setValue(gestureState.dx);
   },
 
   _swipeSlowSpeed(gestureState: Object): void {
     this.state.currentLeft.setValue(
-      this._previousLeft + gestureState.dx / SLOW_SPEED_SWIPE_FACTOR,
+      gestureState.dx / SLOW_SPEED_SWIPE_FACTOR,
     );
   },
 
@@ -350,10 +352,12 @@ const SwipeableRow = React.createClass({
   },
 
   _handlePanResponderEnd(event: Object, gestureState: Object): void {
+    this.state.currentLeft.flattenOffset();
+
     const horizontalDistance = IS_RTL ? -gestureState.dx : gestureState.dx;
     if (this._isSwipingRightFromClosed(gestureState)) {
       this.props.onOpen();
-      // this._animateBounceBack(RIGHT_SWIPE_BOUNCE_BACK_DURATION);
+      this._animateToClosedPosition(RIGHT_SWIPE_BOUNCE_BACK_DURATION);
     } else if (this._shouldAnimateRemainder(gestureState)) {
       if (horizontalDistance < 0) {
         // Swiped left

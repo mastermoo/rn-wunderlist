@@ -117,7 +117,7 @@ class List {
 	@action openTodo(selectedTodo) {
 		this.selectedTodo = selectedTodo;
 		this.resetOpenId();
-		setTimeout(this.openDetail.bind(this), 0); // trick to make animation smoother
+		requestAnimationFrame(this.openDetail.bind(this));
 	}
 
 	@action resetOpenId() {
