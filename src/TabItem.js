@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { observer } from 'mobx-react/native';
-import { Ionicons as Icon } from '@exponent/vector-icons';
-import P from 'P';
-
+import React, { Component } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { observer } from "mobx-react/native";
+import { Ionicons as Icon } from "@expo/vector-icons";
+import P from "P";
 
 @observer
 export default class extends Component {
@@ -23,18 +22,18 @@ export default class extends Component {
 }
 
 const styles = StyleSheet.create({
-  btn: {
+  btn: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center"
   },
   btnIcon: {
-    color: 'white',
-    fontSize: 24,
+    color: "white",
+    fontSize: 24
   },
   btnText: {
-    textAlign: 'center',
-    color: 'white',
-    fontSize: 11,
+    textAlign: "center",
+    color: "white",
+    fontSize: 11
   }
 });

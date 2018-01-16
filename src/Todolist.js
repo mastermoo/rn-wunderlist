@@ -1,33 +1,41 @@
-import React, { Component } from 'react';
-import { StyleSheet, ScrollView, Text, View, Image, TouchableHighlight,
-  Dimensions, RefreshControl, LayoutAnimation, Animated } from 'react-native';
-import { Font } from 'exponent';
-import P from 'P';
-import { observer } from 'mobx-react/native';
-import store from './stores/todolist';
-import Todo from './Todo';
-import TodoForm from './TodoForm';
-import Tabbar from './Tabbar';
-import TabDropdown from './TabDropdown';
-import TodoDetail from './TodoDetail';
+import React, { Component } from "react";
+import {
+  StyleSheet,
+  ScrollView,
+  Text,
+  View,
+  Image,
+  TouchableHighlight,
+  Dimensions,
+  RefreshControl,
+  LayoutAnimation,
+  Animated
+} from "react-native";
+import { Font } from "expo";
+import P from "P";
+import { observer } from "mobx-react/native";
+import store from "./stores/todolist";
+import Todo from "./Todo";
+import TodoForm from "./TodoForm";
+import Tabbar from "./Tabbar";
+import TabDropdown from "./TabDropdown";
+import TodoDetail from "./TodoDetail";
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 const todoAnim = {
   duration: 500,
   create: {
     type: LayoutAnimation.Types.spring,
-    property: LayoutAnimation.Properties.scaleXY,
-  },
+    property: LayoutAnimation.Properties.scaleXY
+  }
 };
-
-
 
 @observer
 export default class extends Component {
   async componentWillMount() {
     await Font.loadAsync({
-      'lato-regular': require('./assets/Lato-Regular.ttf'),
+      "lato-regular": require("./assets/Lato-Regular.ttf")
     });
 
     store.loaded = true;
@@ -46,37 +54,44 @@ export default class extends Component {
           <P style={styles.navbarTitle}>Todos</P>
         </View>
 
-        <Image style={styles.bg} source={require('./assets/bg.jpg')}>
-          <Animated.View style={{
-            flex: 1,
-            opacity: store.detailAnim.interpolate({
-              inputRange: [0, width],
-              outputRange: [1, 0.75]
-            }),
-            transform: [{
-              scale: store.detailAnim.interpolate({
+        <View style={{ flex: 1 }}>
+          <Image style={styles.bg} source={require("./assets/bg.jpg")} />
+          <Animated.View
+            style={{
+              flex: 1,
+              opacity: store.detailAnim.interpolate({
                 inputRange: [0, width],
-                outputRange: [1, 0.95]
-              })
-            }]
-          }}>
+                outputRange: [1, 0.75]
+              }),
+              transform: [
+                {
+                  scale: store.detailAnim.interpolate({
+                    inputRange: [0, width],
+                    outputRange: [1, 0.95]
+                  })
+                }
+              ]
+            }}
+          >
             <ScrollView
               style={styles.content}
-              refreshControl={<RefreshControl 
-                refreshing={store.refreshing} 
-                onRefresh={() => store.refresh()}
-                tintColor={'#fff'}
-              />}
-              keyboardDismissMode={'on-drag'}
-              keyboardShouldPersistTaps={true}
+              refreshControl={
+                <RefreshControl
+                  refreshing={store.refreshing}
+                  onRefresh={() => store.refresh()}
+                  tintColor={"#fff"}
+                />
+              }
+              keyboardDismissMode={"on-drag"}
+              keyboardShouldPersistTaps="always"
               scrollEnabled={store.scrollable}
               onScroll={() => store.resetOpenId()}
               scrollEventThrottle={200}
             >
               <TodoForm />
 
-              <View style={{ flexDirection: 'column-reverse' }}>
-                {store.openTodos.map((todo) => (
+              <View style={{ flexDirection: "column-reverse" }}>
+                {store.openTodos.map(todo => (
                   <Todo key={todo.id} todo={todo} />
                 ))}
               </View>
@@ -85,7 +100,7 @@ export default class extends Component {
               {this.renderCompletedTodos()}
             </ScrollView>
           </Animated.View>
-        </Image>
+        </View>
 
         <TabDropdown />
         <Tabbar />
@@ -101,12 +116,12 @@ export default class extends Component {
     return (
       <TouchableHighlight
         activeOpacity={1}
-        underlayColor={'rgba(0,0,0,0.4)'}
+        underlayColor={"rgba(0,0,0,0.4)"}
         style={styles.btn}
         onPress={() => store.toggleCompletedTodos()}
       >
         <Text style={styles.btnText}>
-          {store.completedVisible ? 'HIDE' : 'SHOW'} COMPLETED TO-DOS
+          {store.completedVisible ? "HIDE" : "SHOW"} COMPLETED TO-DOS
         </Text>
       </TouchableHighlight>
     );
@@ -116,10 +131,8 @@ export default class extends Component {
     if (!store.completedVisible) return;
 
     return (
-      <View style={{ flexDirection: 'column-reverse' }}>
-        {store.completedTodos.map((todo) => (
-          <Todo key={todo.id} todo={todo} />
-        ))}
+      <View style={{ flexDirection: "column-reverse" }}>
+        {store.completedTodos.map(todo => <Todo key={todo.id} todo={todo} />)}
       </View>
     );
   }
@@ -131,40 +144,41 @@ const styles = StyleSheet.create({
   bg: {
     width,
     height: height - navbarHeight - 49,
-    resizeMode: 'cover',
-    backgroundColor: '#eee',
+    resizeMode: "cover",
+    backgroundColor: "#eee",
+    position: "absolute"
   },
   navbar: {
     height: navbarHeight,
-    backgroundColor: '#588d64',
+    backgroundColor: "#588d64",
     paddingTop: 20,
-    justifyContent: 'center'
+    justifyContent: "center"
   },
   navbarTitle: {
-    color: 'white',
-    textAlign: 'center',
-    fontWeight: '600',
-    fontSize: 18,
+    color: "white",
+    textAlign: "center",
+    fontWeight: "600",
+    fontSize: 18
   },
   container: {
-    flex: 1,
+    flex: 1
   },
   content: {
     flex: 1,
-    padding: 10,
+    padding: 10
   },
 
   btn: {
-    alignSelf: 'center',
+    alignSelf: "center",
     marginVertical: 20,
     paddingVertical: 6,
     paddingHorizontal: 10,
-    backgroundColor: 'rgba(88,141,100,0.8)',
-    borderRadius: 2,
+    backgroundColor: "rgba(88,141,100,0.8)",
+    borderRadius: 2
   },
   btnText: {
-    color: 'white',
+    color: "white",
     fontSize: 10,
-    fontWeight: '600',
+    fontWeight: "600"
   }
 });

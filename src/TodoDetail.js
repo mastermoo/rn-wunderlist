@@ -1,22 +1,28 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Animated, Dimensions, 
-  TouchableOpacity, PanResponder, TextInput } from 'react-native';
-import P from 'P';
-import { observer } from 'mobx-react/native';
-import { Ionicons as Icon } from '@exponent/vector-icons';
-import store from './stores/todolist';
-import StarButton from './StarButton';
+import React, { Component } from "react";
+import {
+  StyleSheet,
+  View,
+  Animated,
+  Dimensions,
+  TouchableOpacity,
+  PanResponder,
+  TextInput
+} from "react-native";
+import P from "P";
+import { observer } from "mobx-react/native";
+import { Ionicons as Icon } from "@expo/vector-icons";
+import store from "./stores/todolist";
+import StarButton from "./StarButton";
 
-const { width } = Dimensions.get('window');
-
+const { width } = Dimensions.get("window");
 
 @observer
 export default class extends Component {
   constructor(props) {
     super(props);
-  
+
     this.state = {
-      height: 0,
+      height: 0
     };
   }
 
@@ -48,9 +54,7 @@ export default class extends Component {
     });
   }
 
-  validateTitle() {
-    
-  }
+  validateTitle() {}
 
   render() {
     const todo = store.selectedTodo;
@@ -60,14 +64,19 @@ export default class extends Component {
     return (
       <Animated.View
         {...this._panResponder.panHandlers}
-        style={[styles.container, {
-          transform: [{
-            translateX: this.pan.interpolate({
-              inputRange: [0, width],
-              outputRange: [width, 0]
-            })
-          }]
-        }]}
+        style={[
+          styles.container,
+          {
+            transform: [
+              {
+                translateX: this.pan.interpolate({
+                  inputRange: [0, width],
+                  outputRange: [width, 0]
+                })
+              }
+            ]
+          }
+        ]}
       >
         <View style={styles.header}>
           <TouchableOpacity
@@ -78,23 +87,33 @@ export default class extends Component {
             activeOpacity={0.75}
             style={styles.backBtn}
           >
-            <Icon name={'ios-arrow-round-back-outline'} style={styles.backBtnIcon} />
+            <Icon
+              name={"ios-arrow-round-back-outline"}
+              style={styles.backBtnIcon}
+            />
           </TouchableOpacity>
 
           <View style={{ flex: 1 }}>
-            {false && <TextInput
-              ref={'input'}
-              style={[styles.title, { height: Math.max(54, this.state.height) }]}
-              value={todo.title}
-              multiline={true}
-              onChangeText={title => store.selectedTodo.title = title}
-              returnKeyType={'done'}
-              onContentSizeChange={(event) => {
-                this.setState({ height: event.nativeEvent.contentSize.height });
-              }}
-              blurOnSubmit={true}
-              onSubmitEditing={this.validateTitle.bind(this)}
-            />}
+            {false && (
+              <TextInput
+                ref={"input"}
+                style={[
+                  styles.title,
+                  { height: Math.max(54, this.state.height) }
+                ]}
+                value={todo.title}
+                multiline={true}
+                onChangeText={title => (store.selectedTodo.title = title)}
+                returnKeyType={"done"}
+                onContentSizeChange={event => {
+                  this.setState({
+                    height: event.nativeEvent.contentSize.height
+                  });
+                }}
+                blurOnSubmit={true}
+                onSubmitEditing={this.validateTitle.bind(this)}
+              />
+            )}
             <P style={styles.title}>{todo.title}</P>
           </View>
 
@@ -109,38 +128,39 @@ const navbarHeight = 80 - 20;
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
+    position: "absolute",
     top: 20,
     right: 0,
     bottom: 0,
     left: 0,
-    backgroundColor: '#fafafa',
-    transform: [{
-      translateX: width,
-    }]
+    backgroundColor: "#fafafa",
+    transform: [
+      {
+        translateX: width
+      }
+    ]
   },
 
   header: {
     minHeight: navbarHeight,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: '#ccc',
-    flexDirection: 'row',
+    borderColor: "#ccc",
+    flexDirection: "row"
   },
-  backBtn: {
+  backBtn: {
     width: 50,
     height: navbarHeight,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center"
   },
   backBtnIcon: {
-    color: '#555',
-    fontSize: 34,
+    color: "#555",
+    fontSize: 34
   },
-  title: {
+  title: {
     paddingVertical: 16,
     fontSize: 20,
-    color: 'black',
+    color: "black"
   }
-
 });

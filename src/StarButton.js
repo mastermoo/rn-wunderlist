@@ -1,20 +1,25 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableHighlight,
-  TouchableOpacity, Alert } from 'react-native';
-import { observer } from 'mobx-react/native';
-import { Ionicons as Icon } from '@exponent/vector-icons';
-import SwipeableRow from './shared/SwipeRow';
-import store from './stores/todolist';
-
+import React, { Component } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableHighlight,
+  TouchableOpacity,
+  Alert
+} from "react-native";
+import { observer } from "mobx-react/native";
+import { Ionicons as Icon } from "@expo/vector-icons";
+import SwipeableRow from "./shared/SwipeRow";
+import store from "./stores/todolist";
 
 @observer
 export default class extends Component {
-  onStarred() {
+  onStarred() {
     store.toggleStarred(this.props.todo);
   }
 
   render() {
-    const { todo } = this.props;
+    const { todo } = this.props;
 
     return (
       <TouchableOpacity
@@ -22,14 +27,16 @@ export default class extends Component {
         activeOpacity={1}
         onPress={this.onStarred.bind(this)}
       >
-        {todo.starred && <View style={styles.starBg}>
-          <View style={styles.bottomTriangle} />
-        </View>}
+        {todo.starred && (
+          <View style={styles.starBg}>
+            <View style={styles.bottomTriangle} />
+          </View>
+        )}
 
         <Icon
-          name={'ios-star' + (todo.starred ? '' : '-outline')}
+          name={"ios-star" + (todo.starred ? "" : "-outline")}
           size={todo.starred ? 20 : 24}
-          color={todo.starred ? 'white' : '#555'}
+          color={todo.starred ? "white" : "#555"}
         />
       </TouchableOpacity>
     );
@@ -42,20 +49,20 @@ const styles = StyleSheet.create({
   btn: {
     width: size,
     height: size,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent"
   },
   starBg: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 13,
     width: 25,
     height: 44,
-    backgroundColor: '#d74e48'
+    backgroundColor: "#d74e48"
   },
   bottomTriangle: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
@@ -63,8 +70,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     borderRightWidth: 12,
     borderLeftWidth: 12,
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderBottomColor: 'white'
+    borderLeftColor: "transparent",
+    borderRightColor: "transparent",
+    borderBottomColor: "white"
   }
 });

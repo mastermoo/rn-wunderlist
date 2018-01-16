@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "Wunderlist Clone",
+    "description":
+      "UI Challenge #2: Wunderlist Clone written in React Native. https://medium.com/@yousefkama/react-native-ui-challenge-2-be24f72e6a68 for a writeup, source at https://github.com/mastermoo/rn-wunderlist",
+    "slug": "wunderlist",
+    "privacy": "public",
+    "sdkVersion": "24.0.0",
+    "platforms": ["ios", "android"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": false
+    }
+  }
+}
